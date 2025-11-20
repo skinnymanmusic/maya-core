@@ -1,0 +1,4 @@
+web: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+guardian-daemon: python -m app.guardians.guardian_daemon
+email-retry-worker: python -m app.workers.email_retry_worker
+
