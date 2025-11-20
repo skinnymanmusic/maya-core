@@ -1,0 +1,12 @@
+{
+  "name": "maya-core",
+  "version": "1.0.0",
+  "description": "Maya Core Azure Functions backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "func start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.3"
+  }
+}
