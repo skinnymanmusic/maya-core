@@ -13,25 +13,29 @@ jobs:
       contents: read
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Azure Login (OIDC)
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci || npm install
 
-      # 🔥 FIX: package WHOLE PROJECT for Functions
+      # Optional: keep but don't fail the build if tests aren't ready yet
+      - name: Run tests (optional)
+        run: npm test
+        continue-on-error: true
+
       - name: Deploy to Azure Function App
         uses: azure/functions-action@v1
         with:
