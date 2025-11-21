@@ -1,0 +1,20 @@
+{
+  "name": "maya-core-azure-functions",
+  "version": "1.0.0",
+  "description": "OMEGA 4.0 Maya Core Azure Functions",
+  "main": "index.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1",
+    "pg": "^8.11.3",
+    "jwks-rsa": "^3.1.0",
+    "@azure/functions": "^4.0.0"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.5455"
+  }
+}
