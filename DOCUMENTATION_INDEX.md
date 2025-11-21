@@ -31,12 +31,36 @@ This zip file contains all relevant guides, logs, and documentation for ChatGPT 
 18. **GITHUB_UPLOAD_REPORT.md** - GitHub repository upload report (maya-mobile)
 19. **SESSION_REPORT.md** - Azure OIDC setup session report
 
+## 📚 Documentation Structure
+
+### Core Documentation (`/docs`)
+1. **MASTER_HANDOFF.md** - Complete handoff guide for developers
+2. **GILMAN_ACCORDS.md** - Project standards and agreements
+3. **UX_GUIDELINES.md** - Design system and UI/UX standards
+4. **ADAPTIVE_ONBOARDING.md** - User onboarding system
+5. **FRONTEND_AUTOBUILD_SPEC.md** - Frontend build specification
+6. **BACKEND_AUTOBUILD_SPEC.md** - Backend build specification
+7. **ARCHITECTURE_OVERVIEW.md** - System architecture overview
+8. **VERTICAL_PACKS.md** - Feature module organization
+9. **PRODUCT_STRATEGY.md** - Product roadmap and strategy
+10. **DEPLOYMENT_PIPELINE.md** - CI/CD and deployment procedures
+
+### Implementation Documentation
+- **MAYA_V3_IMPLEMENTATION_COMPLETE.md** - Overall implementation status
+- **CLAUDE_PROGRESS_LOG.md** - Detailed development history
+- **OMEGA_OVERVIEW.md** - Complete system architecture
+
+### Deployment Documentation
+- **DEPLOYMENT_GUIDE.md** - Railway + Vercel deployment guide
+- **PHASE_4_DEPLOYMENT_CHECKLIST.md** - Step-by-step checklist
+- **ENVIRONMENT_VARIABLES.md** - Environment variable reference
+
 ## 🎯 Quick Start for Review
 
-1. **Start with:** `MAYA_V3_IMPLEMENTATION_COMPLETE.md` for overall status
-2. **Then read:** `CLAUDE_PROGRESS_LOG.md` for detailed history
-3. **For deployment:** `DEPLOYMENT_GUIDE.md` and `PHASE_4_DEPLOYMENT_CHECKLIST.md`
-4. **For architecture:** `OMEGA_OVERVIEW.md`
+1. **Start with:** `docs/MASTER_HANDOFF.md` for complete overview
+2. **Then read:** `docs/ARCHITECTURE_OVERVIEW.md` for system architecture
+3. **For deployment:** `docs/DEPLOYMENT_PIPELINE.md` and `DEPLOYMENT_GUIDE.md`
+4. **For standards:** `docs/GILMAN_ACCORDS.md` and `docs/UX_GUIDELINES.md`
 
 ## 📊 Implementation Status
 
