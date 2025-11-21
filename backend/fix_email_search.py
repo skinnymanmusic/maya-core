@@ -30,13 +30,10 @@ def get_db_connection():
     return psycopg2.connect(database_url)
 
 def decrypt_email(encrypted_email: str) -> str:
-    """Decrypt email - simplified version"""
-    # For now, we'll need to import encryption service
-    # But let's try to handle this gracefully
+    """Decrypt email using encryption service"""
     try:
-        from app.encryption import get_encryption_service
-        encryption_service = get_encryption_service()
-        return encryption_service.decrypt(encrypted_email)
+        from app.encryption import decrypt
+        return decrypt(encrypted_email)
     except Exception as e:
         print(f"[WARNING] Could not decrypt email: {e}")
         return None

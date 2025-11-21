@@ -1,389 +1,318 @@
-# 🎨 UX GUIDELINES
+# UX_GUIDELINES.md  
+## MayAssistant UX & Accessibility Standards (v1.2)
+### The user experience must always feel: optional, empowering, modern, ethical, and stress-reducing.
 
-**MAYA/OMEGA Design System**  
-**Version:** 1.0  
-**Last Updated:** 2025-01-27
-
----
-
-## 📋 Overview
-
-This document defines the user experience guidelines, design system, and UI/UX standards for the MAYA/OMEGA frontend application.
+Last Updated: 2025-01-27
 
 ---
 
-## 🎯 Design Principles
+# 1. PURPOSE
 
-### 1. Mobile First
-- Design for mobile devices first, then scale up
-- Minimum touch target: **48px × 48px**
-- Ensure all interactions work on touch screens
-- Test on real devices, not just emulators
+This document defines how MayAssistant **looks, feels, flows, and behaves**.
 
-### 2. Accessibility
-- WCAG 2.1 AA compliance minimum
-- Keyboard navigation for all features
-- Screen reader support
-- High contrast mode support
-- Focus indicators visible
+It merges:
+- The OurBooks accessibility mandate  
+- The Gilman Accords  
+- The MayAssistant dual-vertical UX strategy  
+- Your adaptive complexity philosophy (“UX is up to the user”)  
+- Cursor-safe, future-proof UI principles  
 
-### 3. Performance
-- First Contentful Paint < 1.5s
-- Time to Interactive < 3.5s
-- Optimize images and assets
-- Lazy load non-critical content
-- Use skeleton loaders, not spinners
-
-### 4. Clarity
-- Clear, concise language
-- Consistent terminology
-- Visual hierarchy
-- Error messages are helpful
-- Success states are clear
+Every screen, component, interaction, and training flow MUST align with this file.
 
 ---
 
-## 🎨 Design System
+# 2. USER-CONTROLLED COMPLEXITY (THE 3-LAYER PHILOSOPHY)
 
-### Color Palette
+MayAssistant is the **first AI booking platform that adapts its UI complexity to each user**.
 
-**Primary Colors:**
-```css
---primary-black: #000000;      /* Main background, text */
---primary-yellow: #FCD34D;     /* Accent, highlights */
---primary-gray-800: #1F2937;   /* Sidebar, cards */
---primary-gray-400: #9CA3AF;   /* Secondary text */
-```
+Users can switch modes ANYTIME from the accessibility panel.
 
-**Status Colors:**
-```css
---success: #10B981;    /* Green - success states */
---warning: #F59E0B;    /* Amber - warnings */
---error: #EF4444;      /* Red - errors */
---info: #3B82F6;       /* Blue - information */
-```
+### 🟧 **Layer 1 — Ultra-Simple Mode**
+For beauty pros + barbers + stylists who want ZERO clutter.
+- Only essential actions visible
+- Giant buttons
+- Big text default
+- No analytics
+- No advanced settings
+- Booking → Pay → Remind, that’s it
 
-**Usage:**
-- **Black:** Primary background, main text
-- **Yellow:** Active states, highlights, CTAs
-- **Gray-800:** Sidebar, card backgrounds
-- **Gray-400:** Secondary text, disabled states
+### 🟦 **Layer 2 — Standard Mode** (Default)
+For most users.
+- Clean dashboard  
+- Bookings, clients, payments  
+- Minimal charts  
+- Friendly onboarding tips  
 
-### Typography
+### 🟩 **Layer 3 — Power User Mode**
+For DJs, agencies, tech-savvy pros.
+- Advanced automations  
+- Developer tab  
+- Integrations center  
+- Multi-location controls  
+- Revenue analytics  
+- Timeline logs  
+- Vertical-specific controls (Events Pack, etc.)
 
-**Font Family:**
-- Primary: `Inter` (sans-serif)
-- Fallback: `system-ui, -apple-system, sans-serif`
-
-**Font Sizes:**
-```css
---text-xs: 0.75rem;    /* 12px - Captions */
---text-sm: 0.875rem;   /* 14px - Body small */
---text-base: 1rem;     /* 16px - Body */
---text-lg: 1.125rem;   /* 18px - Body large */
---text-xl: 1.25rem;    /* 20px - Headings */
---text-2xl: 1.5rem;    /* 24px - Section titles */
---text-3xl: 2rem;      /* 32px - Page titles */
-```
-
-**Font Weights:**
-- `400` - Regular (body text)
-- `500` - Medium (emphasis)
-- `600` - Semibold (headings)
-- `700` - Bold (strong emphasis)
-
-### Spacing
-
-**Grid System:**
-- Base unit: **4px**
-- Use multiples of 4px for all spacing
-
-**Spacing Scale:**
-```css
---space-1: 0.25rem;   /* 4px */
---space-2: 0.5rem;    /* 8px */
---space-3: 0.75rem;   /* 12px */
---space-4: 1rem;      /* 16px */
---space-6: 1.5rem;    /* 24px */
---space-8: 2rem;      /* 32px */
---space-12: 3rem;     /* 48px */
-```
-
-### Components
-
-#### Buttons
-
-**Primary Button:**
-```tsx
-<button className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 transition-colors min-h-[48px] min-w-[48px]">
-  Primary Action
-</button>
-```
-
-**Secondary Button:**
-```tsx
-<button className="bg-gray-800 text-white font-medium px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors min-h-[48px] min-w-[48px]">
-  Secondary Action
-</button>
-```
-
-**Button States:**
-- Default: Full opacity
-- Hover: Slightly darker/lighter
-- Active: Pressed state
-- Disabled: 50% opacity, no interaction
-
-#### Cards
-
-```tsx
-<div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-  {/* Card content */}
-</div>
-```
-
-#### Input Fields
-
-```tsx
-<input
-  type="text"
-  className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 min-h-[48px]"
-  placeholder="Enter text..."
-/>
-```
-
-**Input States:**
-- Default: Gray border
-- Focus: Yellow ring (2px)
-- Error: Red border
-- Disabled: 50% opacity
+**The UI adapts to the user — not the other way around.**
 
 ---
 
-## 📱 Mobile Guidelines
+# 3. ACCESSIBILITY STANDARDS (MANDATORY)
 
-### Touch Targets
-- **Minimum:** 48px × 48px
-- **Recommended:** 56px × 56px for primary actions
-- **Spacing:** 8px minimum between touch targets
+These are inherited from OurBooks’ accessibility philosophy and expanded for MayAssistant.
 
-### Navigation
-- Bottom navigation for mobile
-- Hamburger menu for desktop
-- Breadcrumbs for deep navigation
-- Back button always available
+All modes MUST support:
 
-### Forms
-- Full-width inputs on mobile
-- Large, easy-to-tap buttons
-- Inline validation
-- Clear error messages
-- Auto-focus first field
+### ✔ Text Size Scaling  
+- Small  
+- Medium  
+- Large  
+- XL (high visibility)
 
-### Lists
-- Minimum row height: 56px
-- Clear visual separation
-- Swipe actions (optional)
-- Pull-to-refresh
-- Infinite scroll for long lists
+### ✔ Dyslexia-Friendly Font  
+- Switchable globally  
+- Applies to all components instantly
 
----
+### ✔ Color-Blind Palettes  
+- Protanopia  
+- Deuteranopia  
+- Tritanopia  
+- High-contrast “Accessibility Gold” theme
 
-## ♿ Accessibility Guidelines
+### ✔ Quiet Mode  
+For neurodivergent or overwhelmed users:
+- No animations  
+- No pop-up tooltips  
+- Minimal notifications  
+- Slower transitions  
 
-### Keyboard Navigation
-- All interactive elements keyboard accessible
-- Tab order is logical
-- Focus indicators visible (yellow ring)
-- Skip links for main content
+### ✔ Predictable Navigation  
+- No changing button positions  
+- No surprise modals  
+- No hidden menus  
+- No moving targets  
 
-### Screen Readers
-- Semantic HTML elements
-- ARIA labels where needed
-- Alt text for images
-- Descriptive link text
-- Form labels associated with inputs
-
-### Color Contrast
-- Text: Minimum 4.5:1 contrast ratio
-- Large text: Minimum 3:1 contrast ratio
-- Don't rely on color alone for information
-
-### Focus Management
-- Focus trap in modals
-- Return focus after modal closes
-- Focus visible on all interactive elements
-- No focus traps in normal flow
+### ✔ Keyboard Navigation & Screen Reader Support  
+- Every interactive element accessible via TAB  
+- ARIA labels mandatory  
+- Focus rings visible  
 
 ---
 
-## 🎭 Component Patterns
+# 4. DESIGN PRINCIPLES
 
-### Loading States
+### ⭐ **Clarity Over Cleverness**  
+Simple language always beats jargon.
 
-**Skeleton Loader:**
-```tsx
-<div className="animate-pulse">
-  <div className="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
-  <div className="h-4 bg-gray-700 rounded w-1/2"></div>
-</div>
-```
+### ⭐ **45-Second Rule**  
+A new user should:
+- understand the dashboard  
+- see their next appointment  
+- understand how to add a client  
+- send a test reminder  
 
-**Spinner:**
-```tsx
-<div className="flex items-center justify-center">
-  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400"></div>
-</div>
-```
+**in 45 seconds or less.**
 
-### Error States
+### ⭐ **Zero Cognitive Overload**  
+No walls of text.  
+No complex forms.  
+No 7-step wizards.  
+Chunk EVERYTHING.
 
-**Error Message:**
-```tsx
-<div className="bg-red-900/20 border border-red-500 rounded-lg p-4 text-red-400">
-  <p className="font-semibold">Error</p>
-  <p className="text-sm mt-1">{errorMessage}</p>
-  <button className="mt-4 text-red-400 underline">Retry</button>
-</div>
-```
+### ⭐ **Predictable Flow**  
+Every action should follow:
+1. Intent  
+2. Confirmation  
+3. Result  
+4. Undo  
 
-### Empty States
+### ⭐ **Mobile First**  
+Most beauty pros + stylists + barbers run their businesses from phones.
 
-```tsx
-<div className="text-center py-12">
-  <p className="text-gray-400 text-lg">No items found</p>
-  <button className="mt-4 text-yellow-400 underline">Add Item</button>
-</div>
-```
-
-### Success States
-
-```tsx
-<div className="bg-green-900/20 border border-green-500 rounded-lg p-4 text-green-400">
-  <p>✓ Success! {message}</p>
-</div>
-```
+### ⭐ **Everything Optional**  
+No forced onboarding.  
+No forced setup.  
+No forced automation.  
+Ever.
 
 ---
 
-## 📊 Data Display
+# 5. DESIGN SYSTEM COMPONENTS
 
-### Tables
-- Responsive (scroll on mobile)
-- Sortable columns
-- Clear headers
-- Alternating row colors
-- Action buttons in rows
+A unified base component library lives in `/components/ui/`.
 
-### Cards
-- Consistent padding (24px)
-- Clear hierarchy
-- Action buttons at bottom
-- Hover states for interactivity
+### Buttons:
+- Primary
+- Secondary
+- Ghost
+- Destructive
+- Icon-only
+- Loading state
 
-### Lists
-- Clear visual separation
-- Consistent spacing
-- Action buttons accessible
-- Loading states
-- Empty states
+### Inputs:
+- Text  
+- Email  
+- Phone  
+- Search  
+- Date/time  
+- Select  
+- Autocomplete  
+- Textarea  
 
----
+### Cards:
+- Standard Card  
+- Highlight Card  
+- Success/Warning/Error Cards  
 
-## 🔔 Notifications
+### Data Display:
+- Tables  
+- Lists  
+- Badges  
+- Charts (simple, minimal)
 
-### Toast Notifications
-- Position: Top-right (desktop), Bottom (mobile)
-- Auto-dismiss: 5 seconds
-- Manual dismiss: X button
-- Types: Success, Error, Warning, Info
+### Navigation:
+- Sidebar (collapsible)  
+- Top bar  
+- Workspace switcher  
+- User settings menu  
 
-### Inline Notifications
-- Contextual to content
-- Clear and actionable
-- Dismissible
-- Persistent for critical info
-
----
-
-## 🎯 User Flows
-
-### Booking Flow
-1. User receives email/SMS
-2. Clicks payment link
-3. Completes payment
-4. Receives confirmation
-5. Booking appears in dashboard
-
-### Error Recovery
-1. Error message displayed
-2. Retry button available
-3. Clear error description
-4. Support contact if needed
-
-### Onboarding
-1. Welcome screen
-2. Feature highlights
-3. Quick setup
-4. First action guidance
+### Notifications:
+- Toast (non-blocking)  
+- Inline success/error banners  
+- Subtle progress bars  
 
 ---
 
-## 📱 Responsive Breakpoints
+# 6. PLATFORM-WIDE LAYOUT STRUCTURE
 
-```css
-/* Mobile First */
-sm: 640px   /* Small tablets */
-md: 768px   /* Tablets */
-lg: 1024px  /* Laptops */
-xl: 1280px  /* Desktops */
-2xl: 1536px /* Large desktops */
-```
+### 🗂 Dashboard Layout
+- Left sidebar (navigation)
+- Top bar (profile, theme, accessibility)
+- Main content area (cards + tables)
 
-**Usage:**
-- Mobile: Default styles
-- Tablet: `md:` prefix
-- Desktop: `lg:` prefix
+### 🏷 Page Layout
+Each page should have:
+- Title  
+- Short description  
+- Main section  
+- Secondary sidebar (if power user)  
 
----
-
-## 🎨 Animation Guidelines
-
-### Transitions
-- Duration: 200-300ms
-- Easing: `ease-in-out`
-- Use for: Hover, focus, state changes
-
-### Loading
-- Skeleton loaders preferred
-- Spinners for quick actions
-- Progress bars for long operations
-
-### Micro-interactions
-- Button press feedback
-- Form validation feedback
-- Success confirmations
-- Error shake (optional)
+### 📱 Mobile Layout
+- Sticky bottom navigation bar  
+- Floating “+” button for quick add  
+- Collapsible sections  
+- Large touch targets (48px minimum)  
 
 ---
 
-## ✅ Checklist
+# 7. CONTENT TONE & LANGUAGE
 
-Before shipping UI changes:
+MayAssistant’s tone = **clear + friendly + respectful**.
 
-- [ ] Mobile responsive
-- [ ] Touch targets ≥ 48px
-- [ ] Keyboard accessible
-- [ ] Screen reader tested
-- [ ] Color contrast verified
-- [ ] Loading states implemented
-- [ ] Error states implemented
-- [ ] Empty states implemented
-- [ ] Performance optimized
-- [ ] Cross-browser tested
+### Do:
+- “Let’s confirm this appointment.”
+- “Here are your next steps.”
+- “You can change this anytime.”
+
+### Do NOT:
+- “Are you sure?”
+- “You must finish this first.”
+- Shame/pressure wording
 
 ---
 
-**Version:** 1.0  
-**Status:** Active  
-**Maintained By:** Frontend Team
+# 8. COMPONENT BEHAVIOR RULES (NON-NEGOTIABLES)
 
+- Buttons must show loading state  
+- Inputs must have error + success states  
+- Tooltips must be ignorable  
+- Forms must auto-save drafts  
+- No scroll-jacking  
+- No full-screen modals unless absolutely needed  
+- No infinite spinners — use skeleton loaders instead  
+- Animations must be < 200ms  
+
+---
+
+# 9. SCREEN-BY-SCREEN GUIDELINES
+
+### Dashboard:
+- Show today’s appointments  
+- Show "Money Owed Today"  
+- Alerts module (if enabled)  
+- No more than 3 metrics  
+
+### Bookings:
+- Table + filters  
+- Quick-add button  
+- Inline reschedule  
+- Status badges  
+
+### Clients:
+- Masked PII by default (per Gilman Accords)  
+- Search uses hashed fields  
+- Quick-add client modal  
+
+### Payments:
+- Full Stripe integration  
+- Clear deposit status  
+- Buttons:
+  - “Send Payment Link”
+  - “Send Reminder”
+
+### Automations:
+- Toggle-based  
+- No scripts or code  
+- Default suggestions for beginners  
+
+### Messages:
+- Timeline view  
+- Email + SMS threads unified  
+
+---
+
+# 10. VERTICAL DIFFERENTIATION (APPLIED AT RUNTIME)
+
+### Beauty:
+- Pastel/light themes  
+- Icons: nail, hair, spa  
+- 30–90 min blocks  
+- Simple repeating schedules  
+
+### Events (DJ):
+- Dark mode default  
+- Equipment icons  
+- Long-duration blocks (4–8 hours)  
+- Event detail fields  
+
+---
+
+# 11. QUALITY STANDARDS (ABSOLUTE)
+
+- FCP < 1.5s  
+- LCP < 2.5s  
+- Lazy-load images  
+- Bundles < 250 KB gzipped  
+- All content mobile-optimized  
+- No layout shift during load  
+
+---
+
+# 12. UX MANDATE SUMMARY
+
+MayAssistant MUST feel:
+
+- **Beautiful**  
+- **Fast**  
+- **Flexible**  
+- **Optional**  
+- **Accessible**  
+- **Calming**  
+- **Intuitive**  
+- **Non-judgmental**  
+- **Professional without being cold**  
+
+If a UX choice increases anxiety?  
+It is automatically wrong.
+
+**END OF UX_GUIDELINES.md**

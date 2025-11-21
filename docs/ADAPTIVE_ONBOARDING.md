@@ -1,457 +1,173 @@
-# 🎓 ADAPTIVE ONBOARDING
+# ADAPTIVE_ONBOARDING.md  
+## Adaptive, Fluid, Optional Onboarding System (v1.2)
 
-**User Onboarding System**  
-**Version:** 1.0  
-**Last Updated:** 2025-01-27
-
----
-
-## 📋 Overview
-
-The Adaptive Onboarding system provides personalized, context-aware guidance to help users understand and effectively use the MAYA/OMEGA platform. It adapts based on user role, experience level, and usage patterns.
+Last Updated: 2025-01-27
 
 ---
 
-## 🎯 Goals
+# 1. PURPOSE
+MayAssistant onboarding must feel:
+- optional  
+- fluid  
+- magical  
+- non-intrusive  
+- tailored  
+- stress-reducing  
 
-1. **Reduce Time to Value** - Get users productive quickly
-2. **Reduce Support Burden** - Answer common questions proactively
-3. **Increase Feature Adoption** - Guide users to discover features
-4. **Improve User Satisfaction** - Make onboarding smooth and helpful
+The system adapts itself to:
+- user preference  
+- user experience level  
+- vertical (Beauty vs Events)  
+- cognitive load  
 
 ---
 
-## 🏗️ Architecture
+# 2. THREE MODES OF ONBOARDING
 
-### Onboarding Components
+Users select their mode immediately (and can switch any time).
 
-1. **Welcome Flow** - Initial setup and orientation
-2. **Feature Tours** - Interactive guides for key features
-3. **Contextual Hints** - Inline help and tooltips
-4. **Progress Tracking** - Onboarding completion status
-5. **Adaptive Suggestions** - Personalized recommendations
+---
 
-### Data Model
+## 🟧 Mode 1 — ZERO TRAINING  
+For users who want **no tutorial**.
 
-```typescript
+Behavior:
+- Immediately drop into Dashboard  
+- No walkthrough  
+- No nags  
+- No forced steps  
+- Settings accessible at any time  
+
+Use cases:
+- Barbers  
+- Nail techs  
+- DJs familiar with booking tools  
+- Pros who are “tired of platforms wasting their time”
+
+---
+
+## 🟨 Mode 2 — BITE-SIZED TIPS  
+For users who want subtle help but no guided flow.
+
+Behavior:
+- One-sentence tooltips  
+- Only appear when hovering or tapping  
+- “Show more” expands into deeper info  
+- “Never show again” permanently hides  
+- No mandatory steps  
+- Hints appear only 1 time per component  
+
+---
+
+## 🟩 Mode 3 — FULL GUIDED TRAINING  
+For users who want hands-on, interactive training.
+
+This is where MayAssistant shows **real magic**:
+- “Say a command out loud” → Maya texts their phone  
+- Simulated bookings  
+- Simulated no-shows  
+- Simulated payments  
+- Mini 5–10s animations to demonstrate flows  
+- Real actions (create booking, send test SMS, etc.)
+
+Training is broken into **levels**:
+
+### LEVEL 1 — BASIC (5 minutes)
+- Add a booking  
+- Confirm a booking  
+- Change business hours  
+- Send a test reminder  
+
+### LEVEL 2 — INTERMEDIATE (10–15 minutes)
+- Setup services  
+- Setup pricing  
+- Sync Google Calendar  
+- Setup Stripe payment links  
+
+### LEVEL 3 — ADVANCED (20–25 minutes)
+- Automations  
+- Multi-location  
+- Advanced settings  
+- Developer tab (Power Users)
+
+Users can exit ANYTIME.  
+Progress saves automatically.
+
+---
+
+# 3. ARCHITECTURE OF THE ONBOARDING ENGINE
+
+### Components:
+- Welcome Flow  
+- Feature Tours  
+- Contextual Hints  
+- Progress Tracker  
+- Adaptive Logic Layer  
+- Role-Based Configurations (stylist, DJ, etc.)
+
+### Data Model (frontend):
+```ts
 interface OnboardingState {
-  userId: string;
-  tenantId: string;
+  mode: "none" | "tips" | "guided";
   completedSteps: string[];
   skippedSteps: string[];
-  currentStep: string | null;
-  preferences: {
-    showHints: boolean;
-    showTours: boolean;
-    preferredFormat: 'video' | 'text' | 'interactive';
-  };
-  progress: {
-    welcomeComplete: boolean;
-    firstBookingComplete: boolean;
-    firstPaymentComplete: boolean;
-    settingsConfigured: boolean;
-  };
+  lastShownHint: string | null;
+  level: 1 | 2 | 3;
 }
 ```
 
----
-
-## 🚀 Welcome Flow
-
-### Step 1: Welcome Screen
-
-**Content:**
-- Welcome message
-- Platform overview
-- Key benefits
-- "Get Started" button
-
-**Duration:** User-controlled
-
-### Step 2: Profile Setup
-
-**Content:**
-- Business name
-- Contact information
-- Timezone
-- Currency preferences
-
-**Validation:**
-- Required fields marked
-- Format validation
-- Save progress
-
-### Step 3: Integration Setup
-
-**Content:**
-- Gmail connection
-- Calendar connection
-- Stripe connection (optional)
-- Twilio connection (optional)
-
-**Guidance:**
-- Step-by-step instructions
-- Video tutorials (optional)
-- Troubleshooting tips
-
-### Step 4: First Action
-
-**Content:**
-- Guided first email processing
-- Or guided first booking creation
-- Success celebration
-
-**Adaptive:**
-- Based on user's primary use case
-- Skip if user already active
+Stored in:
+- localStorage (persisted)  
+- synced to backend optionally  
 
 ---
 
-## 🎨 Feature Tours
+# 4. INTERACTION MODEL
 
-### Dashboard Tour
-
-**Steps:**
-1. Overview of dashboard sections
-2. Navigation sidebar
-3. Quick actions
-4. Status indicators
-
-**Trigger:** First login after welcome
-
-### Bookings Tour
-
-**Steps:**
-1. Bookings list view
-2. Payment status indicators
-3. Filtering and search
-4. Creating new booking
-
-**Trigger:** First visit to bookings page
-
-### Messages Tour
-
-**Steps:**
-1. Email list view
-2. Thread view
-3. Response actions
-4. Draft management
-
-**Trigger:** First email received
-
-### Settings Tour
-
-**Steps:**
-1. Account settings
-2. Integration settings
-3. Notification preferences
-4. Security settings
-
-**Trigger:** First visit to settings
+Each onboarding event is:
+1. Detect user intent  
+2. Offer tip or next step **only if allowed by mode**  
+3. Provide undo  
+4. Log in progress tracker  
 
 ---
 
-## 💡 Contextual Hints
-
-### Inline Tooltips
-
-**When to Show:**
-- First time user encounters feature
-- After significant UI changes
-- When user seems stuck (no action for 30s)
-
-**Content:**
-- Brief explanation (1-2 sentences)
-- Optional "Learn more" link
-- Dismissible
-
-**Example:**
-```
-💡 Tip: Click here to create a new booking
-[Learn more] [Got it]
-```
-
-### Contextual Help
-
-**Triggers:**
-- Error states
-- Empty states
-- Complex forms
-- New features
-
-**Content:**
-- Relevant help article
-- Video tutorial
-- Contact support
+# 5. CONTENT GUIDELINES
+- Friendly  
+- Short sentences  
+- No jargon  
+- At most 20 words per instruction  
+- No shame (“You forgot…”)  
+- Use positive framing (“Here’s how to…”)  
+- Support dyslexia-friendly mode  
 
 ---
 
-## 📊 Progress Tracking
-
-### Onboarding Checklist
-
-**Items:**
-- [ ] Welcome completed
-- [ ] Profile set up
-- [ ] Gmail connected
-- [ ] Calendar connected
-- [ ] First email processed
-- [ ] First booking created
-- [ ] First payment received
-- [ ] Settings configured
-
-**Display:**
-- Progress bar in sidebar
-- Percentage complete
-- Next recommended step
-
-### Completion Rewards
-
-**Milestones:**
-- 25% - "Getting Started" badge
-- 50% - "Power User" badge
-- 75% - "Expert" badge
-- 100% - "Master" badge
-
-**Benefits:**
-- Unlock advanced features
-- Access to beta features
-- Priority support
+# 6. SUCCESS METRICS
+- Time-to-first-booking  
+- Time-to-first-payment  
+- Feature adoption  
+- Reduction in support messages  
+- User satisfaction (NPS after onboarding)
 
 ---
 
-## 🧠 Adaptive Suggestions
+# 7. MOBILE FIRST
+Onboarding must feel natural on:
+- iPhone  
+- Android  
+- Tablets  
 
-### Based on Usage Patterns
-
-**New User (0-7 days):**
-- Basic feature introductions
-- Common workflows
-- Best practices
-
-**Active User (7-30 days):**
-- Advanced features
-- Optimization tips
-- Integration suggestions
-
-**Power User (30+ days):**
-- Advanced workflows
-- Automation suggestions
-- Customization options
-
-### Based on Role
-
-**Admin:**
-- System configuration
-- User management
-- Security settings
-- Analytics
-
-**User:**
-- Daily workflows
-- Feature usage
-- Tips and tricks
-
-### Based on Behavior
-
-**If user frequently:**
-- Processes emails → Suggest email automation
-- Creates bookings → Suggest booking templates
-- Manages payments → Suggest payment reminders
-- Uses calendar → Suggest calendar sync
+Larger tap targets, minimal typing.
 
 ---
 
-## 🎯 Implementation
-
-### Frontend Components
-
-**OnboardingModal:**
-```typescript
-<OnboardingModal
-  step={currentStep}
-  onComplete={handleComplete}
-  onSkip={handleSkip}
-  onNext={handleNext}
-/>
-```
-
-**FeatureTour:**
-```typescript
-<FeatureTour
-  steps={tourSteps}
-  onComplete={handleTourComplete}
-  onSkip={handleTourSkip}
-/>
-```
-
-**ContextualHint:**
-```typescript
-<ContextualHint
-  id="booking-create"
-  message="Click here to create a new booking"
-  position="bottom"
-  showOnce={true}
-/>
-```
-
-### Backend API
-
-**Endpoints:**
-- `GET /api/onboarding/state` - Get user onboarding state
-- `POST /api/onboarding/complete-step` - Mark step complete
-- `POST /api/onboarding/skip-step` - Skip step
-- `GET /api/onboarding/suggestions` - Get adaptive suggestions
-
-### Storage
-
-**Database Table:**
-```sql
-CREATE TABLE onboarding_states (
-  id UUID PRIMARY KEY,
-  user_id UUID REFERENCES users(id),
-  tenant_id UUID REFERENCES tenants(id),
-  completed_steps JSONB DEFAULT '[]',
-  skipped_steps JSONB DEFAULT '[]',
-  current_step TEXT,
-  preferences JSONB DEFAULT '{}',
-  progress JSONB DEFAULT '{}',
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-```
+# 8. FUTURE EXPANSIONS
+- Role-based training (DJ vs Nail Tech vs Barber)  
+- Voice-first onboarding  
+- Vertical-specific examples  
+- Choose-your-own-adventure tutorials  
 
 ---
 
-## 📱 Mobile Considerations
-
-### Touch-Friendly
-- Large buttons (48px minimum)
-- Swipe gestures for tours
-- Easy dismiss actions
-- Full-screen modals
-
-### Simplified Flow
-- Fewer steps on mobile
-- Essential steps only
-- Optional steps deferred
-- Quick skip options
-
----
-
-## 🎨 UI/UX Guidelines
-
-### Modals
-- Clear close button
-- Progress indicator
-- Skip option always available
-- Mobile-responsive
-
-### Tooltips
-- Non-intrusive
-- Dismissible
-- Positioned intelligently
-- Accessible (keyboard)
-
-### Progress Indicators
-- Visual progress bar
-- Step numbers
-- Completion percentage
-- Estimated time remaining
-
----
-
-## ✅ Success Metrics
-
-### Track:
-- Onboarding completion rate
-- Time to first value
-- Feature adoption rate
-- Support ticket reduction
-- User satisfaction scores
-
-### Goals:
-- 80%+ completion rate
-- < 10 minutes to first value
-- 50%+ feature adoption
-- 30% reduction in support tickets
-- 4.5+ satisfaction score
-
----
-
-## 🔄 Iteration Plan
-
-### Phase 1: Basic Onboarding
-- Welcome flow
-- Profile setup
-- Basic tours
-- Progress tracking
-
-### Phase 2: Adaptive Features
-- Usage-based suggestions
-- Role-based content
-- Behavior tracking
-- Personalized recommendations
-
-### Phase 3: Advanced Features
-- Video tutorials
-- Interactive guides
-- Gamification
-- Community features
-
----
-
-## 📚 Content Guidelines
-
-### Writing Style
-- Clear and concise
-- Action-oriented
-- Friendly but professional
-- Avoid jargon
-
-### Visual Style
-- Use screenshots
-- Highlight relevant areas
-- Animate when helpful
-- Keep it simple
-
-### Accessibility
-- Screen reader compatible
-- Keyboard navigable
-- High contrast
-- Multiple formats (text, video, interactive)
-
----
-
-## 🐛 Common Issues
-
-### User Skips Everything
-**Solution:** Make onboarding optional but recommended, track completion
-
-### User Gets Stuck
-**Solution:** Provide clear exit, support contact, simplified flow
-
-### Content Outdated
-**Solution:** Regular content reviews, version control, A/B testing
-
----
-
-## 📞 Support
-
-**Resources:**
-- Help center
-- Video tutorials
-- Community forum
-- Support email
-
-**Escalation:**
-- If user stuck > 5 minutes → Show support option
-- If error occurs → Show troubleshooting
-- If feature missing → Show roadmap
-
----
-
-**Version:** 1.0  
-**Status:** Planning  
-**Next Review:** 2025-04-27
-
+END OF ADAPTIVE_ONBOARDING.md
