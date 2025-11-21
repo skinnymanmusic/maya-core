@@ -28,6 +28,8 @@ This zip file contains all relevant guides, logs, and documentation for ChatGPT 
 ### Status & Summary
 16. **MAYA_V3_IMPLEMENTATION_SUMMARY.md** - Implementation summary
 17. **IMPLEMENTATION_STATUS.md** - Current status report
+18. **GITHUB_UPLOAD_REPORT.md** - GitHub repository upload report (maya-mobile)
+19. **SESSION_REPORT.md** - Azure OIDC setup session report
 
 ## 🎯 Quick Start for Review
 
