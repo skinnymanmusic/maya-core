@@ -2,13 +2,12 @@
 # CRITICAL: Forces Python 3.11 (asyncpg requires Python 3.11, does not compile on 3.13)
 
 [phases.setup]
-nixPkgs = ["python311", "postgresql"]
+nixPkgs = ["python311", "python311Packages.pip", "python311Packages.setuptools", "postgresql"]
 nixLibs = ["zlib", "libffi", "openssl"]
 
 [phases.install]
 cmds = [
-  "python3.11 -m pip install --upgrade pip",
-  "python3.11 -m pip install -r requirements.txt"
+  "pip install -r requirements.txt"
 ]
 
 [phases.build]
