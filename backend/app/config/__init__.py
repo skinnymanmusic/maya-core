@@ -10,7 +10,3 @@ from .settings import Settings
 def get_settings() -> Settings:
     """Get cached settings instance"""
     return Settings()
-
-
-# Export settings instance for convenience
-settings = get_settings()
