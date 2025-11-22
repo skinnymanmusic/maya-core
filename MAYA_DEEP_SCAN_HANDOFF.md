@@ -1,5 +1,5 @@
 # MAYA PROJECT DEEP SCAN HANDOFF
-**Generated:** 2025-11-21T14:16:36.801957
+**Generated:** 2025-11-22T10:08:36.840077
 **Scanner:** Claude Code
 **For Analysis By:** Claude Desktop (Sonnet 4.5)
 
@@ -7,137 +7,152 @@
 
 ## 📊 EXECUTIVE SUMMARY
 
-- **Total Files Scanned:** 425
-- **Code Files:** 206
-- **Documentation Files:** 185
+- **Total Files Scanned:** 507
+- **Code Files:** 218
+- **Documentation Files:** 240
 - **Configuration Files:** 2
 - **TODOs Found:** 79
 - **FIXMEs/Bugs Found:** 33
-- **Potential Hallucinations:** 117
+- **Potential Hallucinations:** 132
 - **Drift Issues:** 1
-- **Test Files:** 24
+- **Test Files:** 25
 
 ## 🚨 POTENTIAL HALLUCINATIONS
 
 Features documented but not found in implementation:
 
-🔴 **API_ENDPOINT**: GET /api/packs documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/auth/refresh` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/metrics/` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/stripe/webhook` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/calendar/sync` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/auth/google/start` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/auth/refresh documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/clients/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/unsafe-threads/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/workflows documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/emails/thread/{thread_id}` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/pricing-history` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/calculate-price` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/notifications/preferences documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/onboarding/skip-step documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/calendar/events` documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/auto-approval/rules/{id} documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/agents documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/calendar/events documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/onboarding/state documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/workflows/{id} documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/unsafe-threads/{thread_id}` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/agents/` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/auth/login documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/gmail/webhook` documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/agents/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/workflows/{id}/execute documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/onboarding/content documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/accessibility/preferences documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/workflows documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/proactive/scheduled documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/clients/` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/health/encryption` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/health` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/health/` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/clients/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: PUT /api/clients/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/calendar/free-busy` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/calendar/auto-block` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/vee/drafts` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/hands-off/disable documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/vee/drafts?status=approved` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/notifications/mark-read documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/auth/microsoft/start` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /event/{event_id}` documented but not found in code
 🔴 **API_ENDPOINT**: GET /api/health/db` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/agents/` documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/scheduler/tasks/{id} documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/packs/{id}/activate documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/process-emails` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/auto-approval/rules documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/scheduler/tasks documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/auth/me documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/agents` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/accessibility/preferences documented but not found in code
-🔴 **API_ENDPOINT**: PUT /api/auto-approval/rules/{id} documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/clients/{client_id}` documented but not found in code
-🔴 **API_ENDPOINT**: PUT /api/clients/{client_id}` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/hands-off/automations documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/clients` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/clients/` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/clients documented but not found in code
-🔴 **API_ENDPOINT**: PATCH /api/agents/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/health documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/hands-off/status documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/hands-off/enable documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/notifications documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/calendar/block documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/vee/drafts` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/onboarding/mode documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/proactive/{id} documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/scheduler/tasks documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/agents` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/clients` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/auth/microsoft/callback` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/calendar/availability` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/auth/google/callback` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/auth/me` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/emails/` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/auto-approval/rules/{id} documented but not found in code
+🔴 **API_ENDPOINT**: GET /events` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/calendar/events documented but not found in code
 🔴 **API_ENDPOINT**: GET /api/clients/search/by-email/` documented but not found in code
-🔴 **API_ENDPOINT**: PUT /api/workflows/{id} documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/emails/{email_id}/process` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/proactive/schedule documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/scheduler/tasks/{id}/execute documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/vee/drafts/{id}/queue` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/agents/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: PUT /api/agents/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/bookings/` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/calendar/block` documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/calendar/event/{event_id}` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/auth/login` documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/calendar/event/{id}` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/create-invoice` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/market-analysis` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/research-venue` documented but not found in code
-🔴 **API_ENDPOINT**: GET /` documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/notifications/{id} documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/calendar/sync` documented but not found in code
+🔴 **API_ENDPOINT**: POST /` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/proactive/send-now documented but not found in code
 🔴 **API_ENDPOINT**: POST /api/gmail/webhook documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/onboarding/complete-step documented but not found in code
+🔴 **API_ENDPOINT**: POST /google/start` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/scheduler/tasks/{id}/execute documented but not found in code
 🔴 **API_ENDPOINT**: GET /api/unsafe-threads/` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/bookings/{booking_id}` documented but not found in code
+🔴 **API_ENDPOINT**: PUT /api/workflows/{id} documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/scheduler/tasks/{id} documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/agents/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/vee/drafts` documented but not found in code
 🔴 **API_ENDPOINT**: POST /api/sms/receive` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/packs/active documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/clients/{client_id}` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/calendar/events` documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/auto-approval/rules documented but not found in code
-🔴 **API_ENDPOINT**: DELETE /api/clients/{id} documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/workflows/{id}/history documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/gmail/watch` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/agents/` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/calculate-price` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/emails/thread/{thread_id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/onboarding/content documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/auth/google/callback` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/accessibility/preferences documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/auth/me` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/pricing-history` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/auth/microsoft/callback` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/auth/refresh documented but not found in code
+🔴 **API_ENDPOINT**: PUT /api/agents/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/market-analysis` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/emails/{email_id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/hands-off/disable documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/notifications/{id} documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/onboarding/mode documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/calendar/free-busy` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/process-emails` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/auth/microsoft/start` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/scheduler/tasks documented but not found in code
 🔴 **API_ENDPOINT**: GET /api/venue-details/{venue_id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/calendar/events` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/emails/` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/agents` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/hands-off/status documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/health/` documented but not found in code
+🔴 **API_ENDPOINT**: GET /google/start` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/calendar/block documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/create-invoice` documented but not found in code
+🔴 **API_ENDPOINT**: GET /google/callback` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/clients` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/workflows documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/onboarding/state documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/notifications/preferences documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/accessibility/preferences documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/vee/drafts/{id}/queue` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/clients/` documented but not found in code
+🔴 **API_ENDPOINT**: PATCH /api/agents/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/gmail/watch` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/packs/active documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/auto-approval/rules documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/clients/{client_id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/vee/drafts?status=approved` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/proactive/{id} documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/calendar/event/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/health/encryption` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/packs documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/bookings/` documented but not found in code
+🔴 **API_ENDPOINT**: PUT /api/clients/{client_id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/auth/refresh` documented but not found in code
+🔴 **API_ENDPOINT**: GET /availability` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/clients/{id} documented but not found in code
+🔴 **API_ENDPOINT**: POST /events` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/clients documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/unsafe-threads/{thread_id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/proactive/schedule documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/workflows/{id} documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/workflows/{id}/history documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/health` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/onboarding/complete-step documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/gmail/webhook` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/vee/drafts` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/agents/` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/system/status` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/clients/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/emails/{email_id}/process` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/agents/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/packs/{id}/activate documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/research-venue` documented but not found in code
+🔴 **API_ENDPOINT**: PUT /api/clients/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/bookings/{booking_id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/auth/me documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/stripe/webhook` documented but not found in code
+🔴 **API_ENDPOINT**: POST /login` documented but not found in code
+🔴 **API_ENDPOINT**: GET /db` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/health documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/notifications/mark-read documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/scheduler/tasks documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/calendar/events` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/notifications documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/auth/login documented but not found in code
+🔴 **API_ENDPOINT**: PUT /api/auto-approval/rules/{id} documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/agents` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/metrics` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/auth/google/start` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/onboarding/skip-step documented but not found in code
+🔴 **API_ENDPOINT**: POST /google/callback` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/clients` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/unsafe-threads/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/workflows documented but not found in code
 🔴 **API_ENDPOINT**: GET /api/packs/{id} documented but not found in code
 🔴 **API_ENDPOINT**: PUT /api/scheduler/tasks/{id} documented but not found in code
-🔴 **API_ENDPOINT**: POST /api/proactive/send-now documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/emails/{email_id}` documented but not found in code
-🔴 **API_ENDPOINT**: GET /api/metrics` documented but not found in code
-🟡 **DATABASE_TABLE**: Table "012_add_bookings" mentioned in docs but not found in schema
+🔴 **API_ENDPOINT**: POST /api/calendar/auto-block` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/clients/` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/auto-approval/rules documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/calendar/block` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/clients/{id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/auth/login` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/hands-off/enable documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/agents documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/hands-off/automations documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/calendar/event/{event_id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /api/workflows/{id}/execute documented but not found in code
+🔴 **API_ENDPOINT**: GET /encryption` documented but not found in code
+🔴 **API_ENDPOINT**: DELETE /api/clients/{client_id}` documented but not found in code
+🔴 **API_ENDPOINT**: POST /block` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/proactive/scheduled documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/metrics/` documented but not found in code
+🔴 **API_ENDPOINT**: GET /api/calendar/availability` documented but not found in code
 🟡 **DATABASE_TABLE**: Table "014_add_conversations" mentioned in docs but not found in schema
 🟡 **DATABASE_TABLE**: Table "huffman" mentioned in docs but not found in schema
+🟡 **DATABASE_TABLE**: Table "database" mentioned in docs but not found in schema
+🟡 **DATABASE_TABLE**: Table "012_add_bookings" mentioned in docs but not found in schema
 
 ## 🔄 CONFIGURATION DRIFT
 
@@ -145,7 +160,7 @@ Features documented but not found in implementation:
 
 ## 🔌 API ENDPOINTS
 
-**Documented:** 349 endpoints
+**Documented:** 600 endpoints
 **Implemented:** 41 endpoints
 
 ### Implemented Endpoints:
@@ -174,7 +189,7 @@ Features documented but not found in implementation:
 ## 💾 DATABASE
 
 **Schema Tables/Models:** 16
-**Code Files with DB Access:** 40
+**Code Files with DB Access:** 41
 
 ### Tables/Models:
 - `IF` - backend\migrations\002_add_calendar_events.sql
@@ -196,8 +211,8 @@ Features documented but not found in implementation:
 
 ## 🧪 TESTS
 
-**Total Test Functions:** 48
-**Test Files:** 24
+**Total Test Functions:** 49
+**Test Files:** 25
 
 - `backend\tests\fixtures.py`: 0 tests
 - `backend\tests\test_acceptance_ab.py`: 3 tests
@@ -209,7 +224,7 @@ Features documented but not found in implementation:
 - `backend\tests\test_pricing_integration.py`: 2 tests
 - `backend\tests\test_runner.py`: 1 tests
 - `backend\tests\test_safety_gate_phase5.py`: 1 tests
-- ... and 14 more test files
+- ... and 15 more test files
 
 ## 🔗 EXTERNAL INTEGRATIONS
 
@@ -238,7 +253,7 @@ Found in 14 files:
 - `backend\app\routers\stripe.py`
 
 ### SUPABASE
-Found in 8 files:
+Found in 9 files:
 - `DEEP_SCAN_FOR_CLAUDE_DESKTOP.py`
 - `backend\app\routers\calendar.py`
 - `backend\app\routers\clients.py`
@@ -413,26 +428,26 @@ Total: 33
 ## 📁 PROJECT STRUCTURE
 
 ### Key Directories:
-- `./` (39 files)
-- `backend/` (37 files)
+- `./` (55 files)
+- `backend/` (39 files)
+- `docs/` (22 files)
 - `backend\app\services/` (20 files)
 - `docs\reports/` (18 files)
 - `backend\migrations/` (13 files)
 - `backend\app\routers/` (12 files)
 - `backend\tests/` (12 files)
-- `docs/` (12 files)
 - `tests\backend\tests/` (12 files)
+- `restructure/` (10 files)
 - `backend\app\services\intelligence/` (9 files)
 - `docs\reports\phase-completion/` (9 files)
+- `infrastructure\scripts/` (9 files)
+- `infrastructure/` (8 files)
+- `scripts\maintenance/` (8 files)
 - `omega-frontend/` (7 files)
 - `backend\app\guardians/` (6 files)
 - `backend\app\models/` (6 files)
-- `infrastructure/` (6 files)
 - `infrastructure\archive\shared/` (6 files)
-- `infrastructure\scripts/` (6 files)
 - `shared/` (6 files)
-- `cursor\rules/` (5 files)
-- `dev-portal/` (5 files)
 
 ## ⭐ CRITICAL FILES
 
@@ -449,28 +464,28 @@ Total: 33
 
 ## 📈 STATISTICS
 
-- **Total Project Size:** 568,815,514 bytes (542.46 MB)
-- **Average File Size:** 1,338,389 bytes
+- **Total Project Size:** 583,404,127 bytes (556.38 MB)
+- **Average File Size:** 1,150,698 bytes
 - **Largest Files:**
   - `maya_core_deploy.zip`: 563,640,054 bytes
+  - `file_structure.txt`: 12,946,858 bytes
   - `diagnostics\project_tree.txt`: 2,166,030 bytes
+  - `directory_structure.txt`: 1,128,676 bytes
   - `dev-portal\package-lock.json`: 297,098 bytes
-  - `infrastructure\archive\frontend\dev-portal\package-lock.json`: 297,098 bytes
-  - `omega-frontend\package-lock.json`: 243,664 bytes
 
 ## 🕐 RECENT ACTIVITY
 
 Most recently modified files:
-- `PHASE_2_DEPLOYMENT_READINESS_REPORT.md` - 2025-11-21T14:16:10.938534
-- `DEEP_SCAN_FOR_CLAUDE_DESKTOP.py` - 2025-11-21T14:15:46.567391
-- `BACKEND_ENVIRONMENT_VARIABLES_REQUIRED.md` - 2025-11-21T14:15:33.948873
-- `PHASE_1_TEST_VALIDATION_REPORT.md` - 2025-11-21T14:14:58.235252
-- `PHASE_0_COMPLETE_REPORT.md` - 2025-11-21T14:13:34.569324
-- `PHASE_0B_TEST_PLAN.md` - 2025-11-21T14:13:16.937318
-- `PHASE_0_EXECUTION_RESULTS.md` - 2025-11-21T14:12:56.226656
-- `backend\.pytest_cache\v\cache\nodeids` - 2025-11-21T14:12:36.833473
-- `PHASE_0_EXECUTION_PLAN.md` - 2025-11-21T14:10:35.081530
-- `PHASE_0_SQL_PREVIEW.md` - 2025-11-21T14:10:35.081530
+- `repo_integrity_pack_v3\.github\workflows\repo_structure_guard.yml` - 2025-11-22T14:07:54
+- `repo_integrity_pack_v3\docs\DEPLOYMENT_PIPELINE.md` - 2025-11-22T14:07:54
+- `repo_integrity_pack_v3\docs\MASTER_HANDOFF.md` - 2025-11-22T14:07:54
+- `repo_integrity_pack_v3\docs\REPO_INTEGRITY_POLICY.md` - 2025-11-22T14:07:54
+- `repo_integrity_pack_v3\infrastructure\REPO_STRUCTURE_CANON.json` - 2025-11-22T14:07:54
+- `repo_integrity_pack_v3\scripts\check_repo_structure.py` - 2025-11-22T14:07:54
+- `v3_integrity_pack\.github\workflows\repo_structure_guard.yml` - 2025-11-22T13:59:06
+- `v3_integrity_pack\docs\REPO_INTEGRITY_POLICY.md` - 2025-11-22T13:59:06
+- `v3_integrity_pack\infrastructure\REPO_STRUCTURE_CANON.json` - 2025-11-22T13:59:06
+- `v3_integrity_pack\scripts\check_repo_structure.py` - 2025-11-22T13:59:06
 
 ## 💡 RECOMMENDATIONS FOR CLAUDE DESKTOP
 

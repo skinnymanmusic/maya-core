@@ -1,0 +1,34 @@
+protected_paths:
+  - "backend/app/services/"
+  - "backend/app/routers/"
+  - "backend/app/core/"
+  - "backend/app/security/"
+  - "backend/app/database/"
+  - "backend/migrations/"
+
+blocked_actions:
+  - "rewrite-file"
+  - "remove-file"
+  - "alter-authentication"
+  - "modify-encryption"
+  - "modify-database-schema"
+  - "change-business-logic"
+
+allowed_actions:
+  - "write-documentation"
+  - "update-tests"
+  - "refactor-frontend"
+  - "improve-ci"
+  - "add-comments"
+  - "optimize-non-core-code"
+
+warnings:
+  - "Any attempt to modify backend business logic should be treated as UNSAFE."
+  - "Follow the Gilman Accords, Solin Auto-Fix Policy v2, Security-UX Harmony Rules."
+
+dependencies:
+  forbidden_actions:
+    - "Auto-updating versions in backend/requirements.txt or backend/requirements.lock without human intent."
+  requirements:
+    - "Dependency changes must include: approved-dependency-upgrade label on PRs, lockfile updates, staging verification."
+

@@ -1,0 +1,11 @@
+protected_globs:
+  - "backend/app/core/**"
+  - "backend/app/security/**"
+  - "backend/app/database/**"
+  - "backend/app/services/payments**"
+  - "backend/app/services/payment**"
+  - "backend/app/guardian/**"
+  - "backend/app/db/migrations/**"
+
+required_label: "approved-core-change"
+

@@ -239,7 +239,72 @@ Frontend:
 
 ---
 
+# 8.5. SELF-UPDATE & STAGING
+
+MayAssistant supports AI-assisted "self-updates" under strict safety rules. All AI-driven changes must:
+
+1. Be committed on `auto/*` branches (never directly to `main`)
+2. Deploy to staging environment (`mayassistant-staging`) first
+3. Pass tests and health checks before promotion
+4. Require explicit human approval for production deployment
+5. Maintain rollback capability via `infrastructure/LAST_PROD_DEPLOY.json`
+
+**Staging Environment:**
+- Deploys from `auto/*` branches or `develop`
+- Uses separate environment variables and database (recommended)
+- Runs automated health checks after deployment
+
+**Production Environment:**
+- Deploys only from `main` branch
+- Receives only approved commits after staging validation
+- Tracks last good deployment SHA for rollback
+
+**Rollback:**
+- `infrastructure/LAST_PROD_DEPLOY.json` stores the last known-good production deployment
+- CI includes a "Rollback to last good" workflow for emergency recovery
+
+See: `/docs/SELF_UPDATE_POLICY.md` for complete rules and allowed change scope.
+
+---
+
 # 9. SAFETY (GILMAN ACCORDS)
+
+## Backend Integrity Guard
+
+Core backend paths (security, encryption, database, migrations, guardian) are protected by:
+
+- `docs/BACKEND_INTEGRITY_POLICY.md`
+- `.github/backend_protected_paths.yml`
+- `.github/workflows/backend_integrity_guard.yml`
+
+Any change to these paths requires:
+
+- A feature branch
+- A Pull Request
+- The label: `approved-core-change`
+
+The CI workflow automatically blocks PRs that modify protected paths without the required approval label.
+
+### Dependency Freeze Guard
+
+Backend Python dependencies are governed by:
+
+- `docs/PYTHON_DEPENDENCY_POLICY.md`
+- `.github/workflows/dependency_freeze_guard.yml`
+
+Any changes to:
+
+- `backend/requirements.txt`
+- `backend/requirements.lock`
+
+Must:
+
+- Use pinned versions (`==`),
+- Include an updated lockfile,
+- Go through a Pull Request with the label: `approved-dependency-upgrade`,
+- Pass CI checks and staging deployment before production.
+
+---
 
 The Gilman Accords (= your safety constitution) dictate:
 
@@ -254,6 +319,19 @@ The Gilman Accords (= your safety constitution) dictate:
 - Audit everything  
 
 Full accords in: `/docs/GILMAN_ACCORDS.md`
+
+### Integrity Pack v1
+
+All safety and integrity systems are consolidated in Integrity Pack v1:
+
+- `docs/CORE_INTEGRITY_SUMMARY.md` - High-level map of all safety systems
+- `docs/SAFETY_CONTRACT.md` - Operational agreement between humans and AI
+- `docs/AUTO_FIX_POLICY_REPORT.md` - Solin auto-fix levels and behavior
+- `docs/COPILOT_SAFETY_MATRIX.md` - Copilot zone-based safety rules
+- `docs/WORKFLOW_PROTECTION_MAP.md` - CI workflow protection mapping
+- `docs/SELF_UPDATE_RISK_MODEL.md` - Risk levels and mitigation strategies
+
+These documents provide canonical references for safety, automation boundaries, and AI behavior constraints. All AI agents (Solin, Claude, Copilot) must follow these rules.
 
 ---
 
@@ -270,6 +348,7 @@ This file (MASTER_HANDOFF.md) is extended by:
 - `VERTICAL_PACKS.md`  
 - `PRODUCT_STRATEGY.md`  
 - `DEPLOYMENT_PIPELINE.md`  
+- `SELF_UPDATE_POLICY.md`  
 
 No agent should proceed without reading this file first.
 

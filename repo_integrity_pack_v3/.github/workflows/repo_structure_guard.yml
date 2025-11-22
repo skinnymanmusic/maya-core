@@ -1,0 +1,4 @@
+name: Repo Structure Guard
+on: [push]
+
+# Insert full workflow here.

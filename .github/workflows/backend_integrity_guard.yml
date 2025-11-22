@@ -1,0 +1,90 @@
+name: "Backend Integrity Guard"
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend-integrity-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Load protected paths config
+        id: config
+        run: |
+          echo "PROTECTED_GLOBS=$(yq -r '.protected_globs | join(";")' .github/backend_protected_paths.yml)" >> $GITHUB_ENV
+          echo "REQUIRED_LABEL=$(yq -r '.required_label' .github/backend_protected_paths.yml)" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Detect changed files vs base
+        id: diff
+        run: |
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          echo "Base: $BASE_SHA"
+          echo "Head: $HEAD_SHA"
+          git diff --name-only "$BASE_SHA" "$HEAD_SHA" > changed_files.txt
+          echo "Changed files:"
+          cat changed_files.txt
+        shell: bash
+
+      - name: Check for protected file changes
+        id: check_protected
+        run: |
+          PROTECTED_CHANGED="false"
+          IFS=';' read -ra GLOBS <<< "$PROTECTED_GLOBS"
+          echo "Protected globs: $PROTECTED_GLOBS"
+          while IFS= read -r file; do
+            for pattern in "${GLOBS[@]}"; do
+              if [[ "$file" == $pattern ]]; then
+                echo "Detected protected change: $file"
+                PROTECTED_CHANGED="true"
+              fi
+            done
+          done < changed_files.txt
+
+          echo "protected_changed=$PROTECTED_CHANGED" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Check for required label
+        id: check_label
+        if: steps.check_protected.outputs.protected_changed == 'true'
+        run: |
+          echo "Protected files changed, checking labels..."
+          labels=$(jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH")
+          echo "Labels: $labels"
+          has_label="false"
+          while IFS= read -r label; do
+            if [[ "$label" == "$REQUIRED_LABEL" ]]; then
+              has_label="true"
+            fi
+          done <<< "$labels"
+
+          echo "has_label=$has_label" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Fail if protected files changed without approval
+        if: steps.check_protected.outputs.protected_changed == 'true' && steps.check_label.outputs.has_label != 'true'
+        run: |
+          echo "❌ Protected backend files changed but label '$REQUIRED_LABEL' is missing."
+          echo "Add the label '$REQUIRED_LABEL' after explicit review to proceed."
+          exit 1
+        shell: bash
+
+      - name: Pass when no protected changes or label present
+        if: steps.check_protected.outputs.protected_changed != 'true' || steps.check_label.outputs.has_label == 'true'
+        run: |
+          echo "✅ Backend integrity guard passed."
+        shell: bash
+
+# Notes:
+# - This workflow does NOT run tests or deploy.
+# - It only acts as a gate for protected backend changes.
+# - Secrets are NOT used here.
+

@@ -36,6 +36,27 @@ Every document in this directory works together to define:
 
 ---
 
+# 🛡️ Integrity Pack v1
+
+Safety and integrity systems consolidated in one place:
+
+| File | Purpose |
+|------|---------|
+| **CORE_INTEGRITY_SUMMARY.md** | High-level map of all safety systems and guardrails |
+| **SAFETY_CONTRACT.md** | Operational agreement between humans and AI agents |
+| **AUTO_FIX_POLICY_REPORT.md** | Solin auto-fix levels and behavior guidelines |
+| **COPILOT_SAFETY_MATRIX.md** | Zone-based safety rules for GitHub Copilot |
+| **WORKFLOW_PROTECTION_MAP.md** | CI workflow protection mapping |
+| **SELF_UPDATE_RISK_MODEL.md** | Risk levels and mitigation strategies |
+| **BACKEND_INTEGRITY_POLICY.md** | Core backend path protection rules |
+| **PYTHON_DEPENDENCY_POLICY.md** | Dependency pinning and upgrade process |
+| **SELF_UPDATE_POLICY.md** | Staging → production self-update flow |
+| **SOLIN_AUTOFIX_POLICY_V2.md** | Solin auto-fix policy and levels |
+
+These documents provide canonical references for safety, automation boundaries, and AI behavior constraints.
+
+---
+
 # 🧠 AI Agent Rules (Summary)
 
 Before modifying ANYTHING:

@@ -1,0 +1,123 @@
+name: "Dependency Freeze Guard"
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "backend/requirements.txt"
+      - "backend/requirements.lock"
+  push:
+    branches:
+      - "main"
+    paths:
+      - "backend/requirements.txt"
+      - "backend/requirements.lock"
+
+jobs:
+  dependency-freeze-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate dependency pinning and lock sync
+        run: |
+          python - << 'PY'
+          import os
+          import sys
+          import json
+          from pathlib import Path
+
+          required_label = "approved-dependency-upgrade"
+          event_name = os.getenv("GITHUB_EVENT_NAME", "")
+          event_path = os.getenv("GITHUB_EVENT_PATH", "")
+
+          print(f"[INFO] Event: {event_name}")
+          print(f"[INFO] Required label for dependency changes: {required_label}")
+
+          # 1) If this is a Pull Request, enforce the label
+          if event_name == "pull_request" and event_path:
+              with open(event_path, "r", encoding="utf-8") as f:
+                  event = json.load(f)
+              labels = [lbl["name"] for lbl in event.get("pull_request", {}).get("labels", [])]
+              print(f"[INFO] PR labels: {labels}")
+              if required_label not in labels:
+                  print(f"ERROR: Changes to backend dependencies require the '{required_label}' label.")
+                  sys.exit(1)
+          else:
+              print("[WARN] Non-PR event. Assuming branch protection rules enforce PRs for main.")
+
+          backend_dir = Path("backend")
+          req_file = backend_dir / "requirements.txt"
+          lock_file = backend_dir / "requirements.lock"
+
+          if not req_file.exists():
+              print("ERROR: backend/requirements.txt is missing.")
+              sys.exit(1)
+
+          if not lock_file.exists():
+              print("ERROR: backend/requirements.lock is missing. Run the lockfile generation step before merging.")
+              sys.exit(1)
+
+          def load_lines(path: Path):
+              lines = []
+              with path.open("r", encoding="utf-8") as f:
+                  for raw in f:
+                      line = raw.strip()
+                      if not line or line.startswith("#"):
+                          continue
+                      lines.append(line)
+              return lines
+
+          req_lines = load_lines(req_file)
+          lock_lines = load_lines(lock_file)
+
+          # 2) Check that all requirements are pinned (use '==' and no range operators)
+          bad_specs = []
+          for line in req_lines:
+              # Skip editable or local installs (rare, but acknowledge)
+              if line.startswith("-e "):
+                  bad_specs.append(line)
+                  continue
+
+              # Require '==' for pinned versions
+              if "==" not in line:
+                  bad_specs.append(line)
+                  continue
+
+              # For extra safety, reject range operators
+              for bad_token in [">=", "<=", ">", "<", "~=", "!="]:
+                  if bad_token in line and "==" not in line:
+                      bad_specs.append(line)
+                      break
+
+          if bad_specs:
+              print("ERROR: The following requirements are not fully pinned with '==':")
+              for spec in bad_specs:
+                  print(f"  - {spec}")
+              sys.exit(1)
+
+          # 3) Check that lock file matches the set of requirements
+          req_set = set(req_lines)
+          lock_set = set(lock_lines)
+
+          missing_in_lock = sorted(req_set - lock_set)
+          extra_in_lock = sorted(lock_set - req_set)
+
+          if missing_in_lock or extra_in_lock:
+              print("ERROR: backend/requirements.lock is out of sync with backend/requirements.txt")
+              if missing_in_lock:
+                  print("  Missing in lockfile:")
+                  for line in missing_in_lock:
+                      print(f"    - {line}")
+              if extra_in_lock:
+                  print("  Extra in lockfile (not in requirements.txt):")
+                  for line in extra_in_lock:
+                      print(f"    - {line}")
+              print("Hint: Regenerate the lockfile and commit both files together.")
+              sys.exit(1)
+
+          print("✅ Dependency Freeze Guard passed: pinned requirements and lockfile are in sync.")
+          PY
+

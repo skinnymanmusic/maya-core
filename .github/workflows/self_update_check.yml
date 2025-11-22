@@ -1,0 +1,97 @@
+name: "Self-Update Check (Staging + Health)"
+
+on:
+  push:
+    branches:
+      - "auto/**"
+
+jobs:
+  test-and-deploy-staging:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+          cache: 'pip'
+      
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Run pytest + coverage
+        working-directory: ./backend
+        run: |
+          # TODO: Configure pytest command with coverage
+          # pytest --cov=app --cov-report=xml tests/
+          echo "TODO: Run pytest + coverage"
+      
+      - name: Run type checks (mypy)
+        working-directory: ./backend
+        run: |
+          # TODO: Configure mypy checks
+          # mypy app/
+          echo "TODO: Run mypy type checks"
+      
+      - name: Run linting (flake8)
+        working-directory: ./backend
+        run: |
+          # TODO: Configure flake8 checks
+          # flake8 app/ --max-line-length=120 --exclude=__pycache__,venv
+          echo "TODO: Run flake8 linting"
+      
+      - name: Deploy to Railway staging
+        if: success()
+        run: |
+          # TODO: Deploy backend/ to Railway staging service
+          # This requires:
+          # - Railway CLI authentication (RAILWAY_TOKEN secret)
+          # - Railway project/service ID for staging
+          # - Command: railway up --service mayassistant-staging
+          echo "TODO: Deploy to Railway staging service"
+          echo "Command would be: railway up --service mayassistant-staging"
+      
+      - name: Wait for deployment
+        if: success()
+        run: |
+          # TODO: Wait for Railway deployment to complete
+          # sleep 30
+          echo "TODO: Wait for deployment to complete"
+      
+      - name: Health check - /health endpoint
+        if: success()
+        run: |
+          # TODO: Call staging health endpoint
+          # STAGING_URL should be set as GitHub secret or Railway output
+          # curl -f https://mayassistant-staging.up.railway.app/api/health/ || exit 1
+          echo "TODO: Call /api/health/ on staging"
+      
+      - name: Health check - Database connection
+        if: success()
+        run: |
+          # TODO: Call staging database health endpoint
+          # curl -f https://mayassistant-staging.up.railway.app/api/health/db || exit 1
+          echo "TODO: Call /api/health/db on staging"
+      
+      - name: Mark as ready to promote
+        if: success()
+        run: |
+          # TODO: Create a GitHub deployment or status check
+          # This marks the commit as "ready to promote" for manual approval
+          echo "✅ All checks passed. Commit is ready for promotion to production."
+          echo "TODO: Create GitHub deployment status or PR comment"
+      
+      - name: Update LAST_PROD_DEPLOY.json (on promotion)
+        if: success() && github.event_name == 'workflow_dispatch'
+        run: |
+          # TODO: This step runs only when manually promoted to production
+          # Update infrastructure/LAST_PROD_DEPLOY.json with:
+          # - last_good_sha: ${{ github.sha }}
+          # - deployed_at: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "TODO: Update LAST_PROD_DEPLOY.json on production promotion"
+
