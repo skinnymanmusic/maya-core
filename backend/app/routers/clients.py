@@ -19,7 +19,6 @@ from app.services.supabase_service import (
     update_client,
     delete_client,
 )
-from app.services.encryption import get_encryption_service
 
 settings = get_settings()
 router = APIRouter(prefix="/api/clients", tags=["clients"])

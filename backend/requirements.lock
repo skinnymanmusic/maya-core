@@ -1,13 +1,16 @@
-# OMEGA Core v3.0 - Python Dependencies
-# Lockfile - DO NOT EDIT MANUALLY
-# This file must match backend/requirements.txt exactly
-# Regenerate using: pip-compile or pip freeze after updating requirements.txt
+# OMEGA Core v3.0 - Python Dependencies - LOCKFILE
+# DO NOT EDIT MANUALLY - Must match requirements.txt exactly
+# Last synchronized: 2025-11-22
+# Regenerate by copying requirements.txt when dependencies change
 
 # Core Framework
 fastapi==0.115.0
 uvicorn[standard]==0.32.0
 pydantic==2.9.2
 pydantic-settings==2.5.2
+
+# Form Data Support (CRITICAL for OAuth2)
+python-multipart==0.0.9
 
 # Database
 psycopg2-binary==2.9.10
@@ -16,6 +19,7 @@ asyncpg==0.29.0
 
 # Authentication & Security
 PyJWT==2.9.0
+python-jose[cryptography]==3.3.0
 cryptography==43.0.1
 bcrypt==4.2.0
 passlib[bcrypt]==1.7.4
@@ -25,6 +29,9 @@ slowapi==0.1.9
 
 # HTTP Client
 httpx==0.27.2
+
+# Performance
+uvloop==0.20.0
 
 # AI Services
 anthropic==0.39.0
@@ -46,6 +53,8 @@ twilio==8.10.0
 python-dotenv==1.0.1
 python-dateutil==2.9.0.post0
 pytz==2024.2
+tenacity==8.2.3
+email-validator==2.1.0
 
 # Testing
 pytest==8.3.3
@@ -56,4 +65,3 @@ pytest-cov==6.0.0
 black==24.10.0
 flake8==7.1.1
 mypy==1.11.2
-
