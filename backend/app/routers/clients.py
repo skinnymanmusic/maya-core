@@ -12,12 +12,12 @@ from slowapi.util import get_remote_address
 
 from app.config import get_settings
 from app.services.supabase_service import (
-    create_client,
+    create_client as create_client_service,
     get_client_by_id,
     list_clients,
     search_client_by_email,
-    update_client,
-    delete_client,
+    update_client as update_client_service,
+    delete_client as delete_client_service,
 )
 
 settings = get_settings()
@@ -67,7 +67,7 @@ async def create_client(
     trace_id = getattr(request.state, "trace_id", None)
     
     try:
-        client_id = create_client(
+        client_id = create_client_service(
             name=client_request.name,
             email=client_request.email,
             phone=client_request.phone,
@@ -228,7 +228,7 @@ async def update_client_endpoint(
     trace_id = getattr(request.state, "trace_id", None)
     
     try:
-        success = update_client(
+        success = update_client_service(
             client_id=client_id,
             tenant_id=tenant_id,
             name=client_request.name,
@@ -275,7 +275,7 @@ async def delete_client_endpoint(
     trace_id = getattr(request.state, "trace_id", None)
     
     try:
-        success = delete_client(
+        success = delete_client_service(
             client_id=client_id,
             tenant_id=tenant_id,
             trace_id=trace_id
