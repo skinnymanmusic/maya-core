@@ -2,8 +2,6 @@
 OMEGA Core v3.0 - Calendar Router
 Calendar CRUD endpoints with auto-blocking and conflict detection
 """
-from __future__ import annotations
-
 from typing import Optional, List
 from datetime import datetime
 from fastapi import APIRouter, Request, Query, HTTPException, status, Path
@@ -13,7 +11,6 @@ from slowapi.util import get_remote_address
 
 from app.config import get_settings
 from app.services.calendar_service_v3 import CalendarServiceV3
-from app.services.supabase_service import list_calendar_events
 
 settings = get_settings()
 router = APIRouter(prefix="/api/calendar", tags=["calendar"])
@@ -96,8 +93,8 @@ async def list_events(
         start_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00')) if start_date else None
         end_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00')) if end_date else None
         
-        events = list_calendar_events(
-            tenant_id=tenant_id,
+        calendar_service = CalendarServiceV3(tenant_id=tenant_id)
+        events = calendar_service.list_events(
             start_date=start_dt,
             end_date=end_dt,
             limit=limit,
