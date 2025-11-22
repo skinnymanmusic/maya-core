@@ -293,3 +293,215 @@ def get_thread_emails(thread_id: str, tenant_id: str, limit: int = 50) -> List[D
     except Exception:
         return []
 
+
+
+# Additional client management functions
+def create_client(
+    name: str,
+    email: str,
+    phone: Optional[str] = None,
+    company: Optional[str] = None,
+    tenant_id: str = None,
+    trace_id: Optional[str] = None
+) -> Optional[str]:
+    """Create a new client (wrapper around create_or_update_client)"""
+    return create_or_update_client(
+        email=email,
+        name=name,
+        phone=phone,
+        company=company,
+        tenant_id=tenant_id,
+        trace_id=trace_id
+    )
+
+
+def get_client_by_id(client_id: str, tenant_id: str) -> Optional[Dict[str, Any]]:
+    """Get client by ID"""
+    try:
+        with get_cursor(tenant_id=tenant_id) as cur:
+            cur.execute(
+                "SELECT * FROM clients WHERE id = %s AND tenant_id = %s",
+                (client_id, tenant_id)
+            )
+            row = cur.fetchone()
+            if row:
+                client = dict(row)
+                # Decrypt PII fields
+                if client.get('name'):
+                    client['name'] = decrypt(client['name'])
+                if client.get('email'):
+                    client['email'] = decrypt(client['email'])
+                if client.get('phone'):
+                    client['phone'] = decrypt(client['phone'])
+                if client.get('company'):
+                    client['company'] = decrypt(client['company'])
+                return client
+            return None
+    except Exception:
+        return None
+
+
+def list_clients(tenant_id: str, limit: int = 100, offset: int = 0) -> List[Dict[str, Any]]:
+    """List all clients for a tenant"""
+    try:
+        with get_cursor(tenant_id=tenant_id) as cur:
+            cur.execute(
+                """
+                SELECT * FROM clients
+                WHERE tenant_id = %s
+                ORDER BY created_at DESC
+                LIMIT %s OFFSET %s
+                """,
+                (tenant_id, limit, offset)
+            )
+            clients = []
+            for row in cur.fetchall():
+                client = dict(row)
+                # Decrypt PII fields
+                if client.get('name'):
+                    client['name'] = decrypt(client['name'])
+                if client.get('email'):
+                    client['email'] = decrypt(client['email'])
+                if client.get('phone'):
+                    client['phone'] = decrypt(client['phone'])
+                if client.get('company'):
+                    client['company'] = decrypt(client['company'])
+                clients.append(client)
+            return clients
+    except Exception:
+        return []
+
+
+def search_client_by_email(email: str, tenant_id: str) -> Optional[Dict[str, Any]]:
+    """Search for client by email (wrapper around get_client_by_email_hash)"""
+    from app.services.gmail_service import hash_email
+    email_hash = hash_email(email)
+    return get_client_by_email_hash(email_hash, tenant_id)
+
+
+def update_client(
+    client_id: str,
+    name: Optional[str] = None,
+    phone: Optional[str] = None,
+    company: Optional[str] = None,
+    tenant_id: str = None,
+    trace_id: Optional[str] = None
+) -> bool:
+    """Update an existing client"""
+    tenant_id = tenant_id or settings.default_tenant_id
+    audit = get_audit_service(tenant_id)
+
+    try:
+        with get_cursor(tenant_id=tenant_id) as cur:
+            updates = []
+            params = []
+
+            if name is not None:
+                updates.append("name = %s")
+                params.append(encrypt(name))
+            if phone is not None:
+                updates.append("phone = %s")
+                params.append(encrypt(phone))
+            if company is not None:
+                updates.append("company = %s")
+                params.append(encrypt(company))
+
+            if not updates:
+                return False
+
+            updates.append("updated_at = %s")
+            params.append(datetime.now(timezone.utc))
+            params.extend([client_id, tenant_id])
+
+            cur.execute(
+                f"UPDATE clients SET {', '.join(updates)} WHERE id = %s AND tenant_id = %s",
+                params
+            )
+
+            success = cur.rowcount > 0
+
+            if success:
+                audit.log_event(
+                    action="client.updated",
+                    resource_type="client",
+                    resource_id=client_id,
+                    trace_id=trace_id
+                )
+
+            return success
+    except Exception as e:
+        audit.log_event(
+            action="client.update.error",
+            resource_type="client",
+            metadata={"error": str(e), "client_id": client_id},
+            trace_id=trace_id
+        )
+        return False
+
+
+def delete_client(client_id: str, tenant_id: str, trace_id: Optional[str] = None) -> bool:
+    """Delete a client"""
+    audit = get_audit_service(tenant_id)
+
+    try:
+        with get_cursor(tenant_id=tenant_id) as cur:
+            cur.execute(
+                "DELETE FROM clients WHERE id = %s AND tenant_id = %s",
+                (client_id, tenant_id)
+            )
+            deleted = cur.rowcount > 0
+
+            if deleted:
+                audit.log_event(
+                    action="client.deleted",
+                    resource_type="client",
+                    resource_id=client_id,
+                    trace_id=trace_id
+                )
+
+            return deleted
+    except Exception as e:
+        audit.log_event(
+            action="client.delete.error",
+            resource_type="client",
+            metadata={"error": str(e), "client_id": client_id},
+            trace_id=trace_id
+        )
+        return False
+
+
+def list_calendar_events(
+    tenant_id: str,
+    start_date: Optional[datetime] = None,
+    end_date: Optional[datetime] = None,
+    limit: int = 100,
+    offset: int = 0
+) -> List[Dict[str, Any]]:
+    """List calendar events for a tenant"""
+    try:
+        with get_cursor(tenant_id=tenant_id) as cur:
+            if start_date and end_date:
+                cur.execute(
+                    """
+                    SELECT * FROM calendar_events
+                    WHERE tenant_id = %s
+                    AND start_time >= %s
+                    AND end_time <= %s
+                    ORDER BY start_time ASC
+                    LIMIT %s OFFSET %s
+                    """,
+                    (tenant_id, start_date, end_date, limit, offset)
+                )
+            else:
+                cur.execute(
+                    """
+                    SELECT * FROM calendar_events
+                    WHERE tenant_id = %s
+                    ORDER BY start_time DESC
+                    LIMIT %s OFFSET %s
+                    """,
+                    (tenant_id, limit, offset)
+                )
+            return [dict(row) for row in cur.fetchall()]
+    except Exception:
+        return []
