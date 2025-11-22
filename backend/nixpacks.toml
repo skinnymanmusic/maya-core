@@ -7,7 +7,8 @@ nixLibs = ["zlib", "libffi", "openssl"]
 
 [phases.install]
 cmds = [
-  "pip install -r requirements.txt"
+  "python3.11 -m ensurepip",
+  "python3.11 -m pip install -r requirements.txt"
 ]
 
 [phases.build]
