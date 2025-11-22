@@ -15,7 +15,7 @@ from app.services.gmail_webhook import (
     verify_jwt_token,
     process_webhook_message,
 )
-from app.services.gmail_service import setup_watch_subscription
+from app.services.gmail_service import setup_watch
 from app.services.email_processor_v3 import EmailProcessorV3
 from app.database import get_db
 
@@ -117,7 +117,7 @@ async def setup_watch(
     tenant_id = getattr(request.state, "tenant_id", settings.default_tenant_id)
     
     try:
-        result = setup_watch_subscription(
+        result = setup_watch(
             account_email=watch_request.account_email,
             topic=watch_request.topic,
             tenant_id=tenant_id
