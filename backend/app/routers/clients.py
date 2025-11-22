@@ -2,7 +2,6 @@
 OMEGA Core v3.0 - Clients Router
 Client management endpoints with encryption and hashing
 """
-from __future__ import annotations
 
 from typing import List, Optional
 from fastapi import APIRouter, Request, Query, HTTPException, status, Path
