@@ -2,8 +2,6 @@
 OMEGA Core v3.0 - Gmail Router
 Gmail webhook and watch subscription endpoints
 """
-from __future__ import annotations
-
 from typing import Dict, Any, Optional
 from fastapi import APIRouter, Request, HTTPException, status, Header
 from pydantic import BaseModel
